@@ -1,0 +1,99 @@
+{
+  "Common": {
+    "helloWorld": "Hola, Mundo!",
+    "selectLangList": {
+      "en": "English",
+      "es": "Español",
+      "ru": "Русский"
+    },
+    "langList": {
+      "en": "Inglés",
+      "es": "Español",
+      "ru": "Ruso"
+    },
+    "bottomNavigationBar": {
+      "accountPage": "Cuenta",
+      "dashboardPage": "Panel de Control",
+      "settingsPage": "Ajustes"
+    },
+    "signInForm": {
+      "cancelBtn": "Cancelar",
+      "carName": "Nombre del coche",
+      "carNumber": "Matricula",
+      "loginBtn": "Iniciar Sesion",
+      "registerTitle": "Registrarse",
+      "userName": "Nombre de usuario",
+      "password": "Contraseña",
+      "newPassword": "Nueva Contraseña",
+      "repeatPassword": "Repetir Contraseña",
+      "submitBtn": "Iniciar Sesion",
+      "loginTitle": "Iniciar Sesion",
+      "registerBtn": "Registrarse",
+      "registerDescription": "Los campos con * son obligatorios. La matricula no es obligatoria",
+      "changeBtn": "Cambiar"
+    },
+    "vehicleInfoModal": {
+      "title": "Informacion del coche",
+      "saveBtn": "Guardar",
+      "cancelBtn": "Cancelar",
+      "vehicleName": "Nombre",
+      "vehicleNumber": "Matricula",
+      "autoMessage": "Auto mensaje",
+      "isVisibleCarName": "Visibilidad del nombre del coche",
+      "isVisibleCarNumber": "Visibilidad de la matricula"
+    }
+  },
+  "WelcomePage": {
+    "title": "Bienvenido a MoveMyCar app!",
+    "description": "",
+    "btns": {
+      "loginBtn": "Iniciar Sesion",
+      "registerBtn": "Registrarse"
+    }
+  },
+  "DashboardPage": {
+    "title": "Panel de Control",
+    "vehicleCard": {
+      "title": "Coche",
+      "carName": "Nombre",
+      "carNumber": "Matricula"
+    },
+    "userSection": {
+      "title": "Usuario",
+      "userName": "Nombre de usuario"
+    },
+    "callsSection": {
+      "title": "Llamadas",
+      "dateTime": "Fecha y hora",
+      "language": "Idioma",
+      "text": "Texto"
+    },
+    "geoSection": {
+      "title": "Geo",
+      "saveCarPosition": "Guardar posición del coche",
+      "deleteSavedPosition": "Eliminar posicion guardada",
+      "buildRoute": "Crear una ruta hacia el coche"
+    },
+    "carSection": {
+      "title": "Coche"
+    }
+  },
+  "AccountPage": {
+    "title": "Cuenta",
+    "logoutBtn": "Salir",
+    "changePasswordBtn": "Cambiar Contraseña"
+  },
+  "SettingsPage": {
+    "title": "Ajustes"
+  },
+  "CallUserPage": {
+    "title": "Llamar al dueño del vehículo",
+    "message": "Mensaje (opcional)",
+    "sendBtn": "Enviar",
+    "notFound": "El usuario no se encuentra registrado",
+    "error": "Error",
+    "success": "Llamada realizada con exito",
+    "carNumber": "Matricula",
+    "carName": "Nombre"
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "Common": {
+    "helloWorld": "Hello World!",
+    "selectLangList": {
+      "en": "English",
+      "es": "Español",
+      "ru": "Русский"
+    },
+    "langList": {
+      "en": "English",
+      "es": "Spanish",
+      "ru": "Russian"
+    },
+    "bottomNavigationBar": {
+      "accountPage": "Account",
+      "dashboardPage": "Dashboard",
+      "settingsPage": "Settings"
+    },
+    "signInForm": {
+      "loginTitle": "Login",
+      "registerTitle": "Register",
+      "password": "Password",
+      "newPassword": "New Password",
+      "repeatPassword": "Repeat Password",
+      "cancelBtn": "Cancel",
+      "userName": "Username",
+      "submitBtn": "Submit",
+      "registerBtn": "Register",
+      "carName": "Name",
+      "carNumber": "Number",
+      "loginBtn": "Log In",
+      "registerDescription": "Fields with * are required. Car number is optional",
+      "changeBtn": "Change"
+    },
+    "vehicleInfoModal": {
+      "title": "Vehicle info",
+      "saveBtn": "Save",
+      "cancelBtn": "Cancel",
+      "vehicleName": "Name",
+      "vehicleNumber": "Number",
+      "autoMessage": "Auto message",
+      "isVisibleCarName": "Visibility of car name",
+      "isVisibleCarNumber": "Visibility of car number"
+    }
+  },
+  "WelcomePage": {
+    "title": "Welcome to MoveMyCar app!",
+    "description": "",
+    "btns": {
+      "loginBtn": "Log In",
+      "registerBtn": "Register"
+    }
+  },
+  "DashboardPage": {
+    "title": "Dashboard",
+    "vehicleCard": {
+      "title": "Car",
+      "carName": "Car name",
+      "carNumber": "Car number"
+    },
+    "userSection": {
+      "title": "User",
+      "userName": "User name"
+    },
+    "callsSection": {
+      "title": "Calls",
+      "dateTime": "Date",
+      "language": "Language",
+      "text": "Text"
+    },
+    "geoSection": {
+      "title": "Geo",
+      "saveCarPosition": "Save car position",
+      "deleteSavedPosition": "Delete saved position",
+      "buildRoute": "Build a route to the car"
+    },
+    "carSection": {
+      "title": "Car"
+    }
+  },
+  "AccountPage": {
+    "title": "Account",
+    "changePasswordBtn": "Change Password",
+    "logoutBtn": "Log Out"
+  },
+  "SettingsPage": {
+    "title": "Settings"
+  },
+  "CallUserPage": {
+    "title": "Call the vehicle's owner",
+    "message": "Message (optional)",
+    "sendBtn": "Send",
+    "notFound": "User not found",
+    "error": "Error",
+    "success": "Success",
+    "carNumber": "Car number",
+    "carName": "Car name"
+  }
+}
