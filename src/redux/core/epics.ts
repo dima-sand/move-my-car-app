@@ -39,6 +39,7 @@ const routeChangeEpic: MyEpic = action$ =>
     ofType(CoreActionTypes.NavigateTo),
     switchMap(({ payload }: { payload: RoutePaths }) => {
       navigateToServerAction(payload);
+      // window.history.pushState(null, '', payload);
       return EMPTY;
     })
   );

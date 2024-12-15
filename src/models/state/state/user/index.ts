@@ -7,7 +7,7 @@ export interface IUserState {
   isLoggedIn: boolean;
   userInfo: IUserModel | null;
   selectedCarIndex: number;
-  userUpdatingState: IUserUpdatingState;
+  logInChecked: boolean;
 }
 
 export class UserModel {
@@ -51,13 +51,6 @@ enum UserRole {
   Admin = 'admin',
 }
 
-
-export interface IUserUpdatingState {
-  isConnected: boolean;
-  error: string | null;
-}
-
 export interface IUserPreferencies {
   lang: LocaleLang;
 }
-

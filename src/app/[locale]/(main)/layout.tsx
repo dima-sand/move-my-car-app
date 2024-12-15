@@ -1,7 +1,9 @@
 'use client';
+import { navigateToServerAction } from "@/app/actions";
 import { RoutePaths } from "@/constants/routes";
 import { usePathname, useRouter } from "@/i18n/routing";
-import { useAppSelector } from "@/redux/hooks";
+import { navigateTo } from "@/redux/core/actions";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { CarInfoModal } from "@/ui/components/modals";
 import BottomNavigationBar from "@/ui/components/navigationBar";
 import { Box, Container } from "@mui/material";
@@ -16,17 +18,25 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   const pathname = usePathname();
   const tBottomNavigationBar = useTranslations('Common.bottomNavigationBar');
 
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     if(!isLoggedIn) {
-      router.replace(RoutePaths.AuthPage);
+      dispatch(navigateTo(RoutePaths.AuthPage));
+      // navigateToServerAction(RoutePaths.AuthPage);
+      // router.push(RoutePaths.AuthPage);
     }
-  },[isLoggedIn, router])
+  },[dispatch, isLoggedIn, router])
 
   
   const langContent = {
     accountPage: tBottomNavigationBar('accountPage'),
     dashboardPage: tBottomNavigationBar('dashboardPage'),
     settingsPage: tBottomNavigationBar('settingsPage'),
+  }
+
+  if(!isLoggedIn) {
+    return <></>;
   }
 
   return (

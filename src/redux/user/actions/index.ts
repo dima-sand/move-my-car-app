@@ -8,6 +8,7 @@ import { ICar } from '@/models/state/state/user/car';
 export const enum UserActionTypes {
   FetchUserInfo = 'user/FETCH_USER_INFO',
   FetchLogin = 'user/FETCH_LOGIN',
+  CheckLogin = 'user/CHECK_LOGIN',
   FetchLogout = 'user/FETCH_LOGOUT',
   FetchRegistration = 'user/FETCH_REGISTRATION',
   FetchChangePassword = 'user/FETCH_CHANGE_PASSWORD',
@@ -34,11 +35,16 @@ export type ActionTypes =
   | IPayloadAction<UserActionTypes.DeleteCarCall, {carId:string, callId: string}>
   | IPayloadAction<UserActionTypes.AddNewCar, ICar>
   | IAction<UserActionTypes.SaveVehicleInfo>
+  | IAction<UserActionTypes.CheckLogin>
 
 export const fetchLogin = (payload: ILoginData): ActionTypes => ({
   type: UserActionTypes.FetchLogin,
   payload,
 });
+
+export const checkLogin = () : ActionTypes => ({
+  type: UserActionTypes.CheckLogin,
+})
 
 export const fetchRegistration = (payload: IRegisterPayload): ActionTypes => ({
   type: UserActionTypes.FetchRegistration,

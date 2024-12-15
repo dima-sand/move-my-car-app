@@ -6,18 +6,10 @@ import StoreProvider from "@/redux/providers/StoreProvider";
 import "./globals.css";
 import { ClientLayoutComponent } from "@/ui/layouts/mainClientLayoutComponent";
 import { CarInfoModal } from "@/ui/components/modals";
-
-// const geistSans = localFont({
-//   src: "./fonts/GeistVF.woff",
-//   variable: "--font-geist-sans",
-//   weight: "100 900",
-// });
-// const geistMono = localFont({
-//   src: "./fonts/GeistMonoVF.woff",
-//   variable: "--font-geist-mono",
-//   weight: "100 900",
-// });
-// className={`${geistSans.variable} ${geistMono.variable}`}
+import { cookies } from "next/headers";
+import { CookieNames } from "@/constants/common";
+import { RoutePaths } from "@/constants/routes";
+import { navigateToServerAction } from "../actions";
 
 export const metadata: Metadata = {
   title: "MoveMyCar app",
@@ -33,8 +25,10 @@ export default async function RootLayout({
 }>) {
   // const cookieStore = await cookies();
   // if (cookieStore.has(CookieNames.access_token)) {
-  //   navigateToServerAction(RoutePaths.AuthPage);
-  //   return;
+  //   console.log('Redirect to auth page');
+    
+  //   await navigateToServerAction(RoutePaths.AuthPage);
+  //   // return;
   // }
 
   const messages = await getMessages();

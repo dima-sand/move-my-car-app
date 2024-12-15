@@ -1,115 +1,33 @@
 import { combineEpics, ofType } from 'redux-observable';
-import {
-  catchError,
-  concat,
-  EMPTY,
-  from,
-  of,
-  switchMap,
-} from 'rxjs';
-import {
-  saveNotificationToken,
-  UserActionTypes,
-} from '../actions';
+import { catchError, EMPTY, from, of, switchMap, concatMap } from 'rxjs';
+import { UserActionTypes } from '../actions';
 import getInfoService from '../../../api/services/user/getInfo';
 import { userActions } from '..';
 import { coreActions } from '../../core';
 import { callWithLoader$ } from '../../../helpers/reduxHelpers';
-import registrationService, {
-  IRegisterPayload,
-} from '../../../api/services/auth/registration';
-import loginService, { ILoginData } from '../../../api/services/auth/login';
-import {
-  SignInModalMode,
-} from '../../../models/state/state/core';
+import { SignInModalErrorType } from '../../../models/state/state/core';
 import { MyEpic } from '../../../models/state/epics';
 
 import { RoutePaths } from '../../../constants/routes';
 import saveMessagingTokenService from '../../../api/services/user/saveMessagingToken';
-import logoutService from '@/api/services/auth/logout';
-import { navigateTo, navigateTo as navigateToAction } from '../../core/actions';
+import { navigateTo } from '../../core/actions';
 import { fetchToken } from '../../../../firebase';
-import saveCarLocationService, { ISaveCarLocationPayload } from '@/api/services/user/carServices/saveCarLocation';
+import saveCarLocationService, {
+  ISaveCarLocationPayload,
+} from '@/api/services/user/carServices/saveCarLocation';
 import carEpics from './carEpics';
+import changePasswordService, { IChangePasswordData } from '@/api/services/user/changePassword';
+import { authEpics } from './authEpics';
 
-const registrationEpic: MyEpic = action$ =>
-  action$.pipe(
-    ofType(UserActionTypes.FetchRegistration),
-    switchMap(({ payload }: { payload: IRegisterPayload }) =>
-      from(
-        callWithLoader$(
-          from(registrationService(payload)).pipe(
-            switchMap(({ data }) => {
-              if (data.success) {
-                return concat(
-                  of(coreActions.setSignInModalMode(SignInModalMode.Closed)),
-                  of(userActions.setIsLoggedIn(true)),
-                  of(navigateTo(RoutePaths.AuthPage))
-                );
-              } else
-                return of(
-                  coreActions.showErrorMessage(
-                    'Something went wrong, try again later'
-                  )
-                );
-            })
-          )
-        )
-      )
-    )
-  );
 
-const loginEpic: MyEpic = action$ =>
-  action$.pipe(
-    ofType(UserActionTypes.FetchLogin),
-    switchMap(({ payload }: { payload: ILoginData }) =>
-      callWithLoader$(
-        from(loginService(payload)).pipe(
-          switchMap(({ data }) => {
-            if (data.success) {
-              return concat(
-                of(coreActions.setSignInModalMode(SignInModalMode.Closed)),
-                of(userActions.setIsLoggedIn(true)),
-                // of(fetchUserInfo()),
-                of(saveNotificationToken()),
-                of(navigateTo(RoutePaths.AuthPage))
-              );
-            } else
-              return of(
-                coreActions.showErrorMessage(
-                  'Something went wrong trying to login, try again later'
-                )
-              );
-          })
-        )
-      )
-    )
-  );
 
-const logoutEpic: MyEpic = action$ =>
-  action$.pipe(
-    ofType(UserActionTypes.FetchLogout),
-    switchMap(() =>
-      callWithLoader$(
-        from(logoutService()).pipe(
-          switchMap(() =>
-            concat(
-              of(userActions.logout()),
-              of(navigateToAction(RoutePaths.InitialPage))
-            )
-          )
-        )
-      )
-    )
-  );
 
 const saveNotificationTokenEpic: MyEpic = action$ =>
   action$.pipe(
     ofType(UserActionTypes.SaveNotificationToken),
     switchMap(() => {
-      const generateToken$ = from(fetchToken());
       return callWithLoader$(
-        from(generateToken$).pipe(
+        from(fetchToken()).pipe(
           switchMap(messagingToken => {
             if (messagingToken) {
               return from(saveMessagingTokenService(messagingToken)).pipe(
@@ -144,28 +62,18 @@ const fetchUserInfoEpic: MyEpic = action$ =>
     switchMap(() =>
       callWithLoader$(
         from(getInfoService()).pipe(
-          switchMap(({ data }) => {
+          concatMap(({ data }) => {
             if (data.success) {
-              return concat(
-                of(userActions.setUserInfoAction(data.data)),
-                of(userActions.setIsLoggedIn(true)),
-                of(navigateTo(RoutePaths.DashboardPage))
-              );
+              return [
+                userActions.setUserInfoAction(data.data),
+                userActions.setIsLoggedIn(true),
+                navigateTo(RoutePaths.DashboardPage),
+              ];
             } else
-              return concat(
-                of(userActions.setUserInfoAction(null)),
-                of(userActions.setIsLoggedIn(false))
-                // of(
-                //   coreActions.showErrorMessage(
-                //     data.message
-                //       ? data.message
-                //       : 'Something went wrong, try again later'
-                //   )
-                // ),
-                // status === 401
-                //   ? of(navigateTo(RoutePaths.WelcomePage))
-                //   : EMPTY,
-              );
+              return [
+                userActions.setUserInfoAction(null),
+                userActions.setIsLoggedIn(false),
+              ];
           })
         ),
         catchError(() => of(userActions.logout()))
@@ -173,36 +81,33 @@ const fetchUserInfoEpic: MyEpic = action$ =>
     )
   );
 
-// const fetchChangePasswordEpic: MyEpic = action$ =>
-//   action$.pipe(
-//     ofType(UserActionTypes.FetchChangePassword),
-//     switchMap(({ payload }: { payload: IChangePasswordData }) =>
-//       from(
-//         callWithLoader$(
-//           from(changePasswordService(payload)).pipe(
-//             switchMap(({ data }) => {
-//               if (data.success) {
-//                 return of(coreActions.resetSignInModalState());
-//               } else
-//                 return of(
-//                   coreActions.showErrorMessage(
-//                     'Something went wrong, try again later'
-//                   )
-//                 );
-//             }),
-//             catchError(() => {
-//               return of(
-//                 coreActions.setSignInModalErrorType(
-//                   SignInModalErrorType.WrongPassword
-//                 )
-//               );
-//             })
-//           )
-//         )
-//       )
-//     )
-//   );
-
+const fetchChangePasswordEpic: MyEpic = action$ =>
+  action$.pipe(
+    ofType(UserActionTypes.FetchChangePassword),
+    switchMap(({ payload }: { payload: IChangePasswordData }) =>
+        callWithLoader$(
+          from(changePasswordService(payload)).pipe(
+            switchMap(({ data }) => {
+              if (data.success) {
+                return of(coreActions.resetSignInModalState());
+              } else
+                return of(
+                  coreActions.showErrorMessage(
+                    'Something went wrong, try again later'
+                  )
+                );
+            }),
+            catchError(() => {
+              return of(
+                coreActions.setSignInModalErrorType(
+                  SignInModalErrorType.WrongPassword
+                )
+              );
+            })
+          )
+        )
+    )
+  );
 
 const saveCarLocationEpic: MyEpic = (action$, state$) =>
   action$.pipe(
@@ -232,17 +137,13 @@ const saveCarLocationEpic: MyEpic = (action$, state$) =>
   );
 
 const userEpics = combineEpics(
-  //  fetchChangePasswordEpic,
+  // local epics:
+  fetchChangePasswordEpic,
   fetchUserInfoEpic,
-  loginEpic,
-  logoutEpic,
-  // // pushNotificationEpic,
-  registrationEpic,
-  // updateUserInfoWSEpic,
-  // testEpic,
   saveNotificationTokenEpic,
   saveCarLocationEpic,
-
+  // imported epics:
+  authEpics,
   carEpics,
 );
 

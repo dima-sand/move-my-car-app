@@ -7,13 +7,11 @@ and it is expected that it will have some errors and missing features. The
 app is under active development and has it's roadmap, and I will be grateful for any feedback and
 bug reports.
 
----
+Alsoб the API for the app is under development and will be published in some time.
 
 ## **Description**
 
 MoveMyCar App is an anonymous and secure solution designed to connect people without revealing personal information. With this app, car owners can register anonymously, generate unique QR codes for their cars, and receive call notifications when someone scans the QR code—all without sharing any personal details like phone numbers or email addresses.
-
----
 
 ## 🚗 **Key Features**
 - **Anonymous Registration**  
