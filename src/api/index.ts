@@ -31,7 +31,7 @@ export class RestService {
       });
     } catch (error) {
       const axiosError = error as AxiosError;
-      console.error(axiosError);
+      console.log(axiosError);
       if (axiosError.response) {
         const response = axiosError.response;
         return {

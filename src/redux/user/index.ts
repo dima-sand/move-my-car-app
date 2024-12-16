@@ -13,7 +13,11 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUserInfoAction(state, action) {
-      state.userInfo = UserModel.getUserFromDB(action.payload);
+      if (action.payload === null) {
+        state.userInfo = null;
+      } else {
+        state.userInfo = UserModel.getUserFromDB(action.payload);
+      }
     },
     setIsLoggedIn(state, action) {
       state.isLoggedIn = action.payload;
@@ -25,7 +29,7 @@ const userSlice = createSlice({
     },
     setLogInChecked(state) {
       state.logInChecked = true;
-    }
+    },
   },
 });
 

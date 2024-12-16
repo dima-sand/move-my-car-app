@@ -16,11 +16,10 @@ import saveCarLocationService, {
   ISaveCarLocationPayload,
 } from '@/api/services/user/carServices/saveCarLocation';
 import carEpics from './carEpics';
-import changePasswordService, { IChangePasswordData } from '@/api/services/user/changePassword';
+import changePasswordService, {
+  IChangePasswordData,
+} from '@/api/services/user/changePassword';
 import { authEpics } from './authEpics';
-
-
-
 
 const saveNotificationTokenEpic: MyEpic = action$ =>
   action$.pipe(
@@ -69,11 +68,13 @@ const fetchUserInfoEpic: MyEpic = action$ =>
                 userActions.setIsLoggedIn(true),
                 navigateTo(RoutePaths.DashboardPage),
               ];
-            } else
+            } else {
               return [
                 userActions.setUserInfoAction(null),
                 userActions.setIsLoggedIn(false),
+                navigateTo(RoutePaths.InitialPage),
               ];
+            }
           })
         ),
         catchError(() => of(userActions.logout()))
@@ -85,27 +86,27 @@ const fetchChangePasswordEpic: MyEpic = action$ =>
   action$.pipe(
     ofType(UserActionTypes.FetchChangePassword),
     switchMap(({ payload }: { payload: IChangePasswordData }) =>
-        callWithLoader$(
-          from(changePasswordService(payload)).pipe(
-            switchMap(({ data }) => {
-              if (data.success) {
-                return of(coreActions.resetSignInModalState());
-              } else
-                return of(
-                  coreActions.showErrorMessage(
-                    'Something went wrong, try again later'
-                  )
-                );
-            }),
-            catchError(() => {
+      callWithLoader$(
+        from(changePasswordService(payload)).pipe(
+          switchMap(({ data }) => {
+            if (data.success) {
+              return of(coreActions.resetSignInModalState());
+            } else
               return of(
-                coreActions.setSignInModalErrorType(
-                  SignInModalErrorType.WrongPassword
+                coreActions.showErrorMessage(
+                  'Something went wrong, try again later'
                 )
               );
-            })
-          )
+          }),
+          catchError(() => {
+            return of(
+              coreActions.setSignInModalErrorType(
+                SignInModalErrorType.WrongPassword
+              )
+            );
+          })
         )
+      )
     )
   );
 
@@ -144,7 +145,7 @@ const userEpics = combineEpics(
   saveCarLocationEpic,
   // imported epics:
   authEpics,
-  carEpics,
+  carEpics
 );
 
 export default userEpics;
