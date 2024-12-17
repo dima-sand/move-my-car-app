@@ -6,10 +6,6 @@ import StoreProvider from "@/redux/providers/StoreProvider";
 import "./globals.css";
 import { ClientLayoutComponent } from "@/ui/layouts/mainClientLayoutComponent";
 import { CarInfoModal } from "@/ui/components/modals";
-import { cookies } from "next/headers";
-import { CookieNames } from "@/constants/common";
-import { RoutePaths } from "@/constants/routes";
-import { navigateToServerAction } from "../actions";
 
 export const metadata: Metadata = {
   title: "MoveMyCar app",
@@ -23,14 +19,6 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }>) {
-  // const cookieStore = await cookies();
-  // if (cookieStore.has(CookieNames.access_token)) {
-  //   console.log('Redirect to auth page');
-    
-  //   await navigateToServerAction(RoutePaths.AuthPage);
-  //   // return;
-  // }
-
   const messages = await getMessages();
   const { locale } = await params;
   return (
