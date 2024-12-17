@@ -10,6 +10,7 @@ import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { messaging } from "../../../../firebase";
 import { onMessage } from "firebase/messaging";
+import { fetchUserInfo } from "@/redux/user/actions";
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   const userInfo = useAppSelector((state) => state.user.userInfo);
@@ -36,6 +37,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     if (fcmMessaging) {
       onMessage(fcmMessaging, (payload) => {
         console.log({ payload });
+        dispatch(fetchUserInfo());
       });
 
     }

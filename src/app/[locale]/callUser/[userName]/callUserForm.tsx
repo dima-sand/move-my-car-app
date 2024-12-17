@@ -2,9 +2,11 @@
 
 import callUserService from "@/api/services/external/callUser";
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useAppDispatch } from "@/redux/hooks";
+import { coreActions } from "@/redux/core";
 
 interface ICallUserFormProps {
   userName: string;
@@ -16,6 +18,12 @@ export default function CallUserForm(props: ICallUserFormProps) {
   const { userName, carNumber, carName } = props;
   const [text, setText] = useState('');
   const [callResult, setCallResult] = useState<'success' | 'error'>();
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(coreActions.hideLoader());
+  },[]);
 
   const carId = useSearchParams().get('carId');
 
@@ -105,7 +113,6 @@ export default function CallUserForm(props: ICallUserFormProps) {
         height: '100%', position: 'relative',
       }}
       >
-      {/* {userName && <Typography variant="h6">User name: {userName}</Typography>} */}
       {carName && <Typography variant="h6">{t('carName')}: {carName}</Typography>}
       {carNumber && <Typography variant="h6">{t('carNumber')}: {carNumber}</Typography>}
       <Box

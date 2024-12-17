@@ -1,20 +1,22 @@
-import { MyEpic } from "@/models/state/epics";
-import { combineEpics, ofType } from "redux-observable";
-import { saveNotificationToken, UserActionTypes } from "../actions";
-import { concatMap, from, map, switchMap } from "rxjs";
-import { callWithLoader$ } from "@/helpers/reduxHelpers";
-import logoutService from "@/api/services/auth/logout";
-import { userActions } from "..";
-import loginService, { ILoginData } from "@/api/services/auth/login";
-import { coreActions } from "@/redux/core";
-import { SignInModalMode } from "@/models/state/state/core";
-import { RoutePaths } from "@/constants/routes";
-import { navigateTo } from "@/redux/core/actions";
-import registrationService, { IRegisterPayload } from "@/api/services/auth/registration";
-
-
-
-
+import { MyEpic } from '@/models/state/epics';
+import { combineEpics, ofType } from 'redux-observable';
+import {
+  fetchUserInfo,
+  saveNotificationToken,
+  UserActionTypes,
+} from '../actions';
+import { concatMap, from, map, switchMap } from 'rxjs';
+import { callWithLoader$ } from '@/helpers/reduxHelpers';
+import logoutService from '@/api/services/auth/logout';
+import { userActions } from '..';
+import loginService, { ILoginData } from '@/api/services/auth/login';
+import { coreActions } from '@/redux/core';
+import { SignInModalMode } from '@/models/state/state/core';
+import { RoutePaths } from '@/constants/routes';
+import { navigateTo } from '@/redux/core/actions';
+import registrationService, {
+  IRegisterPayload,
+} from '@/api/services/auth/registration';
 
 const loginEpic: MyEpic = action$ =>
   action$.pipe(
@@ -47,7 +49,6 @@ const checkLoginEpic: MyEpic = action$ =>
     ofType(UserActionTypes.CheckLogin),
     concatMap(() => {
       return [
-        // coreActions.showLoader(),
         navigateTo(RoutePaths.AuthPage),
         userActions.setLogInChecked(),
       ];
@@ -77,7 +78,7 @@ const registrationEpic: MyEpic = action$ =>
                   coreActions.setSignInModalMode(SignInModalMode.Closed),
                   userActions.setIsLoggedIn(true),
                   saveNotificationToken(),
-                  navigateTo(RoutePaths.AuthPage),
+                  fetchUserInfo(),
                 ];
               } else
                 return [
@@ -96,5 +97,5 @@ export const authEpics = combineEpics(
   loginEpic,
   checkLoginEpic,
   logoutEpic,
-  registrationEpic,
+  registrationEpic
 );

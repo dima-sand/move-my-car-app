@@ -5,7 +5,7 @@ import { SignInModal } from "@/ui/components/modals";
 import { useEffect } from "react";
 import { Typography } from "@mui/material";
 import { usePathname } from "next/navigation";
-import { RoutePaths } from "@/constants/routes";
+import { CallUserPagePath } from "@/constants/routes";
 import { checkLogin } from "@/redux/user/actions";
 
 
@@ -16,8 +16,9 @@ export const ClientLayoutComponent = () => {
   const dispatch = useAppDispatch();
   const pathname = usePathname();
 
+  const isCallUserPage = pathname.includes(CallUserPagePath);
+
   useEffect(() => {
-    const isCallUserPage = pathname.includes(RoutePaths.CallUserPage);
     if (!logInChecked && !isCallUserPage) {
       dispatch(checkLogin());
     }
@@ -26,7 +27,7 @@ export const ClientLayoutComponent = () => {
   return (
     <>
       <SignInModal />
-      {(isLoading || !logInChecked) && <Loader isfullscreen />}
+      {((isLoading || !logInChecked) && !isCallUserPage) && <Loader isfullscreen />}
       <Typography
         sx={{
           position: 'absolute',

@@ -1,5 +1,6 @@
 import getInfoExternalService from "@/api/services/external/getInfoExt";
 import CallUserForm from "./callUserForm";
+import { IResponse } from "@/api";
 
 interface ICallUserPageParams {
   userName: string;
@@ -21,10 +22,22 @@ export default async function CallUserPage(props: ICallUserPageProps) {
     )
   }
 
-  const { data } = await getInfoExternalService({
-    userName,
-    carId,
-  });
+  let data: IResponse<any>;
+
+  try {
+    data = (await getInfoExternalService({
+      userName,
+      carId,
+    })).data;
+    
+  } catch (error) {
+    console.log({ error });
+    
+    return (
+      <div>Internal Server Error</div>
+    )
+  }
+
 
   if (data?.success) {
     const { userName, carNumber, carName } = data.data!;
