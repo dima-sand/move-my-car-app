@@ -40,7 +40,7 @@ const GeoDashboardSection = (props: IGeoSectionProps & IGeoSectionDispatchProps)
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
       saveCarLocation({
-        carId: selectedCar._id,
+        carId: selectedCar.id,
         carLocation: {
           lat: latitude,
           lng: longitude,
@@ -51,7 +51,7 @@ const GeoDashboardSection = (props: IGeoSectionProps & IGeoSectionDispatchProps)
 
   const handleOnDeleteCarLocation = () => {
     saveCarLocation({
-      carId: selectedCar._id,
+      carId: selectedCar.id,
       carLocation: null,
     });
   }

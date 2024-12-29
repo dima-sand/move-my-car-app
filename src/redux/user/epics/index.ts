@@ -121,7 +121,7 @@ const saveCarLocationEpic: MyEpic = (action$, state$) =>
               const response = data.data;
               const updatedUser = structuredClone(state$.value.user.userInfo!);
               const updatedCar = updatedUser.cars.find(
-                car => car._id === response?.carId
+                car => car.id === response?.carId
               )!;
               updatedCar.carLocation = response?.carLocation;
               return of(userActions.setUserInfoAction(updatedUser));

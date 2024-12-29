@@ -28,7 +28,7 @@ export class CarModel {
 }
 
 export interface ICar {
-  _id: string;
+  id: string;
   carName: string;
   carNumber: string;
   index: number;
@@ -38,7 +38,7 @@ export interface ICar {
 }
 
 export type IEditVehicle =
-  Omit<ICar, 'carLocation' | 'carCalls' | 'index' | '_id' | 'carPrefs'> & ICarPreferencies;
+  Omit<ICar, 'carLocation' | 'carCalls' | 'index' | 'id' | 'carPrefs'> & ICarPreferencies;
 
 export interface ICarLocation {
   lat: number;

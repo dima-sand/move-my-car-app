@@ -61,7 +61,7 @@ export default function DashboardPage() {
 
 
 
-  const callUserUrl = `${APP_URL}/callUser/${userInfo.userName}?carId=${selectedCar._id}`;
+  const callUserUrl = `${APP_URL}/callUser/${userInfo.userName}?carId=${selectedCar.id}`;
 
   const handleDownload = () => {
     const tag = qrcode(8, 'L');
@@ -79,14 +79,14 @@ export default function DashboardPage() {
   const handleToggleIsRead = (callId: string) => {
     dispatch(toggleCarCallIsRead({
       callId,
-      carId: selectedCar._id
+      carId: selectedCar.id
     }))
-  }
+  };
 
   const handleDeleteCarCall = (callId: string) => {
     dispatch(deleteCarCall({
       callId,
-      carId: selectedCar._id
+      carId: selectedCar.id
     }))
   };
 
