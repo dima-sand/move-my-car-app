@@ -69,14 +69,15 @@ const coreSlice = createSlice({
         errorType: null,
       };
     },
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    showLoader(state, action: IPayloadAction<string, string | undefined>) {
+    showLoader(state) {
       state.loading = true;
     },
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    hideLoader(state, action: IPayloadAction<string, string | undefined>) {
+    hideLoader(state) {
       state.loading = false;
     },
+    setInfoMessage(state, action) {
+      state.infoMessage = action.payload;
+    }
   },
 });
 

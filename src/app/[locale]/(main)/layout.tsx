@@ -11,16 +11,18 @@ import { useEffect } from "react";
 import { messaging } from "../../../../firebase";
 import { onMessage } from "firebase/messaging";
 import { fetchUserInfo } from "@/redux/user/actions";
+import Toast from "@/ui/components/common/Toast";
+import { coreActions } from "@/redux/core";
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
-  const userInfo = useAppSelector((state) => state.user.userInfo);
-  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
-
   const router = useRouter();
   const pathname = usePathname();
+  const dispatch = useAppDispatch();
+
   const tBottomNavigationBar = useTranslations('Common.bottomNavigationBar');
 
-  const dispatch = useAppDispatch();
+  const { isLoggedIn, userInfo } = useAppSelector((state) => state.user);
+  const { infoMessage } = useAppSelector((state) => state.core);
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -38,11 +40,15 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
       onMessage(fcmMessaging, (payload) => {
         console.log({ payload });
         dispatch(fetchUserInfo());
+        dispatch(coreActions.setInfoMessage(payload.notification?.title));
       });
 
     }
-  }
+  };
 
+  const handleCloseToast = () => {
+    dispatch(coreActions.setInfoMessage(''));
+  };
 
   const langContent = {
     accountPage: tBottomNavigationBar('accountPage'),
@@ -73,6 +79,10 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         onRouteChange={router.push}
       />
       <CarInfoModal />
+      <Toast
+        text={infoMessage}
+        onCloseToast={handleCloseToast}
+      />
     </Box>
   );
 }

@@ -2,9 +2,6 @@
 
 import { useTranslations } from "next-intl";
 import { Box, Grid2 as Grid, IconButton, Typography } from "@mui/material";
-import qrcode from "qrcode-generator";
-import QrCode2Icon from '@mui/icons-material/QrCode2';
-import DownloadIcon from '@mui/icons-material/Download';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
@@ -15,8 +12,9 @@ import VehicleCard from "@/ui/components/cards/VehicleCard";
 import { useState } from "react";
 import CallCard from "@/ui/components/cards/CallCard";
 import { deleteCarCall, saveCarLocation, toggleCarCallIsRead } from "@/redux/user/actions";
-import GeoDashboardSection from "@/ui/components/dashboardSections/geoSection";
+import GeoDashboardSection from "@/ui/components/dashboardSections/Geo";
 import { changeVehicleInfoModalMode } from "@/redux/core/actions";
+import QRDashboardSection from "@/ui/components/dashboardSections/QR";
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL;
 
@@ -62,19 +60,6 @@ export default function DashboardPage() {
 
 
   const callUserUrl = `${APP_URL}/callUser/${userInfo.userName}?carId=${selectedCar.id}`;
-
-  const handleDownload = () => {
-    const tag = qrcode(8, 'L');
-    tag.addData(callUserUrl);
-    tag.make();
-    const dataUrl = tag.createDataURL(10);
-    const link = document.createElement('a');
-    link.href = dataUrl;
-    link.download = 'image.png';
-    link.click();
-    return dataUrl;
-  };
-
 
   const handleToggleIsRead = (callId: string) => {
     dispatch(toggleCarCallIsRead({
@@ -132,22 +117,9 @@ export default function DashboardPage() {
           selectedCar={selectedCar}
         />
 
-        <GridSection size={{ xs: 6 }}>
-          {/* <Typography sx={{ textAlign: 'center' }}>{content.carSection.title}</Typography> */}
-          <QrCode2Icon
-            sx={{
-              fontSize: 'auto', textAlign: 'center',
-              width: '80%', height: 'auto',
-              p: 0, m: 0,
-            }}
-          />
-          <IconButton
-            sx={{ p: 0 }}
-            color="info"
-            onClick={handleDownload}>
-            <DownloadIcon fontSize="large" />
-          </IconButton>
-        </GridSection>
+        <QRDashboardSection
+          callUserUrl={callUserUrl}
+        />
 
         <GridSection size={{ xs: 12 }}>
           <Typography

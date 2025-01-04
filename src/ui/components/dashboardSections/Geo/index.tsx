@@ -80,8 +80,6 @@ const GeoDashboardSection = (props: IGeoSectionProps & IGeoSectionDispatchProps)
               <DeleteIcon />
               <Box sx={{ display: 'flex', flexDirection: 'column', }}>
                 <Typography variant="body2">{langContent.deleteSavedPosition}</Typography>
-                {/* <Typography>{carLocation.lat}</Typography>
-                <Typography>{carLocation.lng}</Typography> */}
               </Box>
             </Button>
           ) :

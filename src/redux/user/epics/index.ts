@@ -43,12 +43,13 @@ const saveNotificationTokenEpic: MyEpic = action$ =>
                   }
                 })
               );
-            } else
+            } else {
               return of(
                 coreActions.showErrorMessage(
                   'Something went wrong, try again later'
                 )
               );
+            }
           })
         )
       );
