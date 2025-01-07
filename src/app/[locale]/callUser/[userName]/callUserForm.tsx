@@ -12,10 +12,11 @@ interface ICallUserFormProps {
   userName: string;
   carNumber: string;
   carName: string;
+  autoMessage: string;
 }
 
 export default function CallUserForm(props: ICallUserFormProps) {
-  const { userName, carNumber, carName } = props;
+  const { userName, carNumber, carName, autoMessage } = props;
   const [text, setText] = useState('');
   const [callResult, setCallResult] = useState<'success' | 'error'>();
 
@@ -23,7 +24,7 @@ export default function CallUserForm(props: ICallUserFormProps) {
 
   useEffect(() => {
     dispatch(coreActions.hideLoader());
-  },[]);
+  }, []);
 
   const carId = useSearchParams().get('carId');
 
@@ -38,6 +39,7 @@ export default function CallUserForm(props: ICallUserFormProps) {
     success: t('success'),
     carNumber: t('carNumber'),
     carName: t('carName'),
+    autoMessage: t('autoMessage'),
   }
 
   if (!carId) {
@@ -112,9 +114,10 @@ export default function CallUserForm(props: ICallUserFormProps) {
       sx={{
         height: '100%', position: 'relative',
       }}
-      >
-      {carName && <Typography variant="h6">{t('carName')}: {carName}</Typography>}
-      {carNumber && <Typography variant="h6">{t('carNumber')}: {carNumber}</Typography>}
+    >
+      {carName && <Typography variant="h6">{langContent.carName}: {carName}</Typography>}
+      {carNumber && <Typography variant="h6">{langContent.carNumber}: {carNumber}</Typography>}
+      {autoMessage && <Typography variant="h6">{langContent.autoMessage}: {autoMessage}</Typography>}
       <Box
         component='form'
         noValidate

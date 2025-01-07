@@ -29,10 +29,10 @@ export default async function CallUserPage(props: ICallUserPageProps) {
       userName,
       carId,
     })).data;
-    
+
   } catch (error) {
     console.log({ error });
-    
+
     return (
       <div>Internal Server Error</div>
     )
@@ -40,9 +40,14 @@ export default async function CallUserPage(props: ICallUserPageProps) {
 
 
   if (data?.success) {
-    const { userName, carNumber, carName } = data.data!;
+    const { userName, carNumber, carName, autoMessage } = data.data!;
     return (
-      <CallUserForm userName={userName} carName={carName} carNumber={carNumber} />
+      <CallUserForm
+        autoMessage={autoMessage}
+        userName={userName}
+        carName={carName}
+        carNumber={carNumber}
+      />
     )
   } else {
     return (

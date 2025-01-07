@@ -94,6 +94,7 @@
     "error": "Error",
     "success": "Success",
     "carNumber": "Car number",
-    "carName": "Car name"
+    "carName": "Car name",
+    "autoMessage": "Auto message"
   }
 }

@@ -94,6 +94,7 @@
     "error": "Error",
     "success": "Llamada realizada con exito",
     "carNumber": "Matricula",
-    "carName": "Nombre"
+    "carName": "Nombre",
+    "autoMessage": "Mensaje automático"
   }
 }

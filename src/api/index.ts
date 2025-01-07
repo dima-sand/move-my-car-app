@@ -13,10 +13,7 @@ export class RestService {
   static #getDefaultHeaders = () => ({
     'Content-Type': 'application/json',
   });
-  public static async fetch<T = any>(
-    url: string,
-    options?: IFetchOptions,
-  ) {
+  public static async fetch<T = any>(url: string, options?: IFetchOptions) {
     const { method, data, headers, serverCall } = options || {};
     try {
       return await axios<IResponse<T>>({
@@ -44,7 +41,6 @@ export class RestService {
         } as AxiosResponse<IResponse<T>>;
       } else {
         return {
-          // ...axiosError,
           ...(axiosError.response ?? {}),
           data: {
             data: null,
