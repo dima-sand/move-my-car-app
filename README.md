@@ -7,7 +7,7 @@ and it is expected that it will have some errors and missing features. The
 app is under active development and has it's roadmap, and I will be grateful for any feedback and
 bug reports.
 
-Also, the API for the app is under development and will be published in some time.
+[The API](https://github.com/dima-sand/move-my-car-api) for the app is under development as well.
 
 ## **Description**
 
