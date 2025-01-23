@@ -76,6 +76,13 @@
     },
     "carSection": {
       "title": "Coche"
+    },
+    "qrModal": {
+      "title": "Descargar el código QR",
+      "downloadImage": "Descargar imagen",
+      "generatePDFwithText": "Generar PDF con texto",
+      "cancelBtn": "Cancelar",
+      "generatePDF": "Generar PDF"
     }
   },
   "AccountPage": {

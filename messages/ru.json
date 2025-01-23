@@ -76,6 +76,13 @@
     },
     "carSection": {
       "title": "Авто"
+    },
+    "qrModal": {
+      "title": "Скачать QR-код",
+      "downloadImage": "Скачать изображение",
+      "generatePDFwithText": "Сгенерировать PDF с текстом",
+      "generatePDF": "Сгенерировать PDF",
+      "cancelBtn": "Отмена"
     }
   },
   "AccountPage": {

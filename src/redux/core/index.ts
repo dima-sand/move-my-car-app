@@ -19,6 +19,7 @@ const initialState: ICoreState = {
     errorType: null,
   },
   vehicleInfoModalState: defaultVehicleInfoModalState,
+  qrGeneratorModalState: false,
 };
 
 export enum StorageKeysCore {
@@ -77,6 +78,9 @@ const coreSlice = createSlice({
     },
     setInfoMessage(state, action) {
       state.infoMessage = action.payload;
+    },
+    setQrGeneratorModalState(state, action) {
+      state.qrGeneratorModalState = action.payload;
     }
   },
 });
