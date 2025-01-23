@@ -13,6 +13,7 @@ import { onMessage } from "firebase/messaging";
 import { fetchUserInfo } from "@/redux/user/actions";
 import Toast from "@/ui/components/common/Toast";
 import { coreActions } from "@/redux/core";
+import QRGeneratorModal from "@/ui/components/modals/qrGeneratorModal";
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -78,11 +79,12 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         pathname={pathname}
         onRouteChange={router.push}
       />
-      <CarInfoModal />
       <Toast
         text={infoMessage}
         onCloseToast={handleCloseToast}
       />
+      <CarInfoModal />
+      <QRGeneratorModal/>
     </Box>
   );
 }

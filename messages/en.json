@@ -76,6 +76,13 @@
     },
     "carSection": {
       "title": "Car"
+    },
+    "qrModal": {
+      "title": "Download QR code",
+      "downloadImage": "Download image",
+      "generatePDFwithText": "Generate PDF with text",
+      "cancelBtn": "Cancel",
+      "generatePDF": "Generate PDF"
     }
   },
   "AccountPage": {

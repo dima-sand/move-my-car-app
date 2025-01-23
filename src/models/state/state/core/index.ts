@@ -9,6 +9,7 @@ export interface ICoreState {
     errorType: SignInModalErrorType | null;
   };
   vehicleInfoModalState: IVehicleInfoModalState;
+  qrGeneratorModalState: boolean;
 }
 
 export interface IVehicleInfoModalState {

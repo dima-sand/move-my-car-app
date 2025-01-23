@@ -14,9 +14,11 @@ import CallCard from "@/ui/components/cards/CallCard";
 import { deleteCarCall, saveCarLocation, toggleCarCallIsRead } from "@/redux/user/actions";
 import GeoDashboardSection from "@/ui/components/dashboardSections/Geo";
 import { changeVehicleInfoModalMode } from "@/redux/core/actions";
-import QRDashboardSection from "@/ui/components/dashboardSections/QR";
+import QrCode2Icon from '@mui/icons-material/QrCode2';
+import DownloadIcon from '@mui/icons-material/Download';
+import { coreActions } from "@/redux/core";
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL;
+
 
 export default function DashboardPage() {
   const userInfo = useAppSelector((state) => state.user.userInfo!);
@@ -59,7 +61,6 @@ export default function DashboardPage() {
 
 
 
-  const callUserUrl = `${APP_URL}/callUser/${userInfo.userName}?carId=${selectedCar.id}`;
 
   const handleToggleIsRead = (callId: string) => {
     dispatch(toggleCarCallIsRead({
@@ -79,6 +80,11 @@ export default function DashboardPage() {
     dispatch(changeVehicleInfoModalMode(index));
 
   const handleOnSavePosition = (args: any) => dispatch(saveCarLocation(args));
+
+
+  const handleOpenQRGeneratorModal = () => {
+    dispatch(coreActions.setQrGeneratorModalState(true));
+  }
 
   return (
     <>
@@ -117,9 +123,21 @@ export default function DashboardPage() {
           selectedCar={selectedCar}
         />
 
-        <QRDashboardSection
-          callUserUrl={callUserUrl}
-        />
+        <GridSection size={{ xs: 6 }}>
+          <QrCode2Icon
+            sx={{
+              fontSize: 'auto', textAlign: 'center',
+              width: '80%', height: 'auto',
+              p: 0, m: 0,
+            }}
+          />
+          <IconButton
+            sx={{ p: 0 }}
+            color="info"
+            onClick={handleOpenQRGeneratorModal}>
+            <DownloadIcon fontSize="large" />
+          </IconButton>
+        </GridSection>
 
         <GridSection size={{ xs: 12 }}>
           <Typography

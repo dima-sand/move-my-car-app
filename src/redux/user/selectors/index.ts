@@ -11,3 +11,5 @@ export const getVehicleInfoToEditSelector = (
 ): IEditVehicle => state.core.vehicleInfoModalState.modifyingVehicleInfo;
 
 export const getUserCarsSelector = (state: IAppState) => state.user.userInfo!.cars;
+
+export const getSelectedCarSelector = (state: IAppState) => state.user.userInfo!.cars[state.user.selectedCarIndex];
