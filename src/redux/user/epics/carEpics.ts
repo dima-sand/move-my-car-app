@@ -7,7 +7,7 @@ import toggleCarCallIsReadService from '@/api/services/user/carServices/toggleCa
 import { userActions } from '..';
 import deleteCarCallService from '@/api/services/user/carServices/deleteCarCall';
 import addNewCarService from '@/api/services/user/carServices/addNewCar';
-import saveVehicleInfoService from '@/api/services/user/carServices/saveVehicleInfo';
+import saveCarInfoService from '@/api/services/user/carServices/saveVehicleInfo';
 import {
   getUserCarsSelector,
   getVehicleInfoModalStateSelector,
@@ -64,7 +64,7 @@ const saveVehicleInfoEpic: MyEpic = (action$, state$) =>
         modifyingVehicleInfo
       );
       return callWithLoader$(
-        from(saveVehicleInfoService(editedCar)).pipe(
+        from(saveCarInfoService(editedCar)).pipe(
           switchMap(({ data }) => {
             if (data.success) {
               return concat(

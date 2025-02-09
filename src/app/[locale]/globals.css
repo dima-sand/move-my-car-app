@@ -1,9 +1,9 @@
 :root {
-  --background: #dbdbdb;
-  --foreground: #171717;
+  --background: #001f3d;
+  --foreground: #ffffff;
 }
 
-/* @media (prefers-color-scheme: dark) { // TODO: Add & support dark theme
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #6c7dc9;
     --foreground: #ededed;

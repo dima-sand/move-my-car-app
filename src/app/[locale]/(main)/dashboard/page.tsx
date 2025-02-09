@@ -1,15 +1,14 @@
 'use client';
 
 import { useTranslations } from "next-intl";
-import { Box, Grid2 as Grid, IconButton, Typography } from "@mui/material";
+import { Box, Container, Divider, Grid2 as Grid, IconButton, Typography } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { GridSection } from "@/ui/components/common";
-// import { saveCarLocation, toggleCarCallIsRead } from "@/redux/user/actions";
 import VehicleCard from "@/ui/components/cards/VehicleCard";
-import { useState } from "react";
+import React, { useState } from "react";
 import CallCard from "@/ui/components/cards/CallCard";
 import { deleteCarCall, saveCarLocation, toggleCarCallIsRead } from "@/redux/user/actions";
 import GeoDashboardSection from "@/ui/components/dashboardSections/Geo";
@@ -17,6 +16,7 @@ import { changeVehicleInfoModalMode } from "@/redux/core/actions";
 import QrCode2Icon from '@mui/icons-material/QrCode2';
 import DownloadIcon from '@mui/icons-material/Download';
 import { coreActions } from "@/redux/core";
+import theme from "@/ui/theme";
 
 
 
@@ -88,10 +88,13 @@ export default function DashboardPage() {
 
   return (
     <>
-      <Box
+      <Container
+        maxWidth="md"
         sx={{
           width: '100%',
           display: 'flex',
+          // flexDirection: 'column',
+          // justifyContent: 'start', alignItems: 'center',
         }}
       >
         {userInfo.cars.map(({ index, carName, carNumber }) => (
@@ -105,62 +108,85 @@ export default function DashboardPage() {
           />
         ))}
 
-      </Box>
+      </Container>
       <IconButton
         onClick={handleOnMinimizeVehicleList}
         size="large"
       >
         {isVehicleListMinimized ? <ExpandMoreIcon /> : <ExpandLessIcon />}
       </IconButton>
-      <Grid
-        sx={{ mt: 1 }}
-        container
-        spacing={1.5}
+      <Container
+        maxWidth="md"
+        sx={{
+          borderTopLeftRadius: 30,
+          borderTopRightRadius: 30,
+          background: 'linear-gradient(#2976D1, #000D1A)',
+          width: '100%',
+          height: '100%',
+          py: 1,
+          // pb: "56px",
+        }}
       >
-        <GeoDashboardSection
-          carLocation={carLocation}
-          saveCarLocation={handleOnSavePosition}
-          selectedCar={selectedCar}
-        />
-
-        <GridSection size={{ xs: 6 }}>
-          <QrCode2Icon
-            sx={{
-              fontSize: 'auto', textAlign: 'center',
-              width: '80%', height: 'auto',
-              p: 0, m: 0,
-            }}
+        <Grid
+          container
+          spacing={1.5}
+          sx={{ mt: 1 }}
+        >
+          <GeoDashboardSection
+            carLocation={carLocation}
+            saveCarLocation={handleOnSavePosition}
+            selectedCar={selectedCar}
           />
-          <IconButton
-            sx={{ p: 0 }}
-            color="info"
-            onClick={handleOpenQRGeneratorModal}>
-            <DownloadIcon fontSize="large" />
-          </IconButton>
-        </GridSection>
 
-        <GridSection size={{ xs: 12 }}>
-          <Typography
-            sx={{ textAlign: 'center' }}>
-            {content.callsSection.title}
-          </Typography>
-          <Box display='flex' flexDirection='column' sx={{ width: '100%' }} >
+          <GridSection size={{ xs: 6 }}>
+            <QrCode2Icon
+              sx={{
+                fontSize: 'auto', textAlign: 'center',
+                width: '60%', height: 'auto',
+                p: 0, m: 0,
+              }}
+            />
+            <IconButton
+              // sx={{ p: 0 }}
+              color="info"
+              onClick={handleOpenQRGeneratorModal}>
+              <DownloadIcon fontSize="large" />
+            </IconButton>
+          </GridSection>
 
-            {
-              selectedCar.carCalls.map((call) =>
-                <CallCard
-                  key={call.id}
-                  call={call}
-                  langContent={content.callsSection}
-                  getLangText={getLangText}
-                  onToggleIsRead={handleToggleIsRead}
-                  onDeleteCarCall={handleDeleteCarCall}
-                />
-              )
-            }
-          </Box>
-        </GridSection>
-      </Grid>
+          <GridSection size={{ xs: 12 }}>
+            <Typography
+              sx={{ textAlign: 'center' }}>
+              {content.callsSection.title}
+            </Typography>
+            <Box display='flex' flexDirection='column' sx={{ width: '100%' }} >
+
+              {
+                selectedCar.carCalls.map((call, index) =>
+                  <React.Fragment key={call.id}>
+                    <CallCard
+                      key={call.id}
+                      call={call}
+                      langContent={content.callsSection}
+                      getLangText={getLangText}
+                      onToggleIsRead={handleToggleIsRead}
+                      onDeleteCarCall={handleDeleteCarCall}
+                    />
+                    {
+                      index !== selectedCar.carCalls.length - 1 &&
+                      <Divider
+                        sx={{ backgroundColor: "#FFFFFF" }}
+                        variant="middle"
+                      />
+                    }
+                  </React.Fragment>
+                )
+              }
+
+            </Box>
+          </GridSection>
+        </Grid>
+      </Container>
     </>
   );
 }

@@ -19,7 +19,7 @@ const GridSection = (props: Grid2Props & IGridSectionProps) => {
           borderRadius: 3,
           height: '100%',
           width: '100%',
-          backgroundColor: 'darkgray',
+          background: '#FFFFFF20',
           ...paperSxProp
         }}>
         {props.children}

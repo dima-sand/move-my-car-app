@@ -32,13 +32,13 @@ const VehicleCard = (props: IVehicleCardProps) => {
 
   return (
     <Paper
-      sx={{
+      sx={(theme) => ({
         display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
         p: 1, mr: 1, height: '100%', width: isMinimized ? '30vw' : '40vw',
         borderRadius: 3, border: isSelected ? '2px solid white' : 'none',
-        backgroundColor: 'gray',
+        backgroundColor: theme.palette.primary.main,
         position: 'relative',
-      }}>
+      })}>
       {isMinimized ?
         <Typography sx={{ ml: 0.5 }} >
           {

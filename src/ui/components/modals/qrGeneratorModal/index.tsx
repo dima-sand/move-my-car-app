@@ -137,27 +137,23 @@ const QRGeneratorModal = () => {
       fullScreen
       open={isOpen}
       onClose={handleOnClose}
-    // PaperProps={{
-    //   component: 'form',
-    //   onSubmit: handleOnSubmit,
-    // }}
     >
       <DialogTitle>{langContent.title}</DialogTitle>
       <DialogContent>
         <Grid2 container rowSpacing={1.5} >
           <GridSection size={{ xs: 12 }}>
 
-            <Typography>{langContent.downloadImage}</Typography>
+            <Typography color="secondary">{langContent.downloadImage}</Typography>
             <IconButton
-              sx={{ p: 0 }}
+              // sx={{ p: 0 }}
               color="info"
               onClick={handleDownloadQRImage}>
-              <DownloadIcon fontSize="large" />
+              <DownloadIcon color="secondary" fontSize="large" />
             </IconButton>
           </GridSection>
           <GridSection size={{ xs: 12 }}>
 
-            <Typography>{langContent.generatePDFwithText}</Typography>
+            <Typography color="secondary">{langContent.generatePDFwithText}</Typography>
             <FormGroup sx={{ width: '90%', my: 2, }}>
               {
                 Object.entries(pdfLangs).map(([lang, text]) => {
@@ -166,22 +162,29 @@ const QRGeneratorModal = () => {
                     <Fragment key={lang}>
                       <FormControlLabel
                         name={lang}
+                        color="secondary"
                         control={<Checkbox
                           checked={isSelected}
                           onChange={handleOnChangeCheckbox}
                         />}
-                        label={tLangList(lang as LocaleLang)}
+                        label={<Typography color="secondary">{tLangList(lang as LocaleLang)}</Typography>}
                       />
                       {
                         isSelected &&
                         <TextField
                           id="outlined-multiline-flexible"
-                          label="Multiline"
+                          // label="Multiline"
                           multiline
+                          color="secondary"
                           maxRows={3}
                           value={text}
                           name={lang}
                           onChange={handleChangeText}
+                          sx={theme => ({
+                            '& .MuiInputBase-input': {
+                              color: theme.palette.secondary.main,
+                            }
+                          })}
                         />
                       }
                     </Fragment>
@@ -189,7 +192,7 @@ const QRGeneratorModal = () => {
                 })
               }
             </FormGroup>
-            <Button variant="contained" onClick={handleGeneratePDF}>{langContent.generatePDF}</Button>
+            <Button onClick={handleGeneratePDF}>{langContent.generatePDF}</Button>
           </GridSection>
         </Grid2>
       </DialogContent>

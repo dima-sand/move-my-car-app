@@ -31,7 +31,6 @@ export default function Toast(props: IToastProps & IToastDispatchProps) {
     >
       <Alert
         severity={type ?? "info"}
-        variant="filled"
         onClose={onCloseToast}
         sx={{ width: '100%' }}
       >{text}</Alert>

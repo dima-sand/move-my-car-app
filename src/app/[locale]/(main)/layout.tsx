@@ -68,12 +68,18 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
       justifyContent: 'space-between',
       height: '100dvh',
     }}>
-      <Container
-        maxWidth='md'
-        sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'center', py: 3 }}
+      <Box
+        // maxWidth='md'
+        sx={{
+          display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'center',
+          flexGrow: 1,
+          pt: 2,
+          height: '100%',
+          overflowX: 'auto',
+        }}
       >
         {userInfo ? children : null}
-      </Container>
+      </Box>
       <BottomNavigationBar
         langContent={langContent}
         pathname={pathname}
@@ -84,7 +90,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         onCloseToast={handleCloseToast}
       />
       <CarInfoModal />
-      <QRGeneratorModal/>
+      <QRGeneratorModal />
     </Box>
   );
 }

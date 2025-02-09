@@ -1,7 +1,7 @@
 'use client';
 import { usePathname, useRouter } from "@/i18n/routing";
 import { Locales, SUPPORTED_LOCALES } from "@/models/locales";
-import { MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
+import { Container, MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
 import { useTranslations, useLocale } from "next-intl";
 
 export default function SettingsPage() {
@@ -19,7 +19,12 @@ export default function SettingsPage() {
   }
 
   return (
-    <>
+    <Container
+      maxWidth="md"
+      sx={{
+        display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'center',
+      }}
+      >
       <Typography
         variant="h4"
         component="span"
@@ -38,6 +43,6 @@ export default function SettingsPage() {
           >{text}</MenuItem>
         ))}
       </Select>
-    </>
+    </Container>
   );
 }

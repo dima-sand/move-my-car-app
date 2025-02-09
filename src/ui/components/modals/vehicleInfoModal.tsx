@@ -1,5 +1,5 @@
 'use client';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from "@mui/material";
 
 import { useTranslations } from "next-intl";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -8,6 +8,7 @@ import { getVehicleInfoToEditSelector } from "@/redux/user/selectors";
 import { coreActions } from "@/redux/core";
 import { ChangeEvent } from "react";
 import { saveVehicleInfo } from "@/redux/user/actions";
+import { WhiteInput } from "../common";
 
 
 
@@ -39,9 +40,6 @@ const VehicleInfoModal = () => {
   const handleOnSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(saveVehicleInfo());
-    // const formData = new FormData(event.currentTarget);
-    // const formJson = Object.fromEntries((formData as any).entries());
-    // index
   };
 
   const handleOnChangeVehicleInfo = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -67,7 +65,11 @@ const VehicleInfoModal = () => {
           onSubmit: handleOnSubmit,
         }}
       >
-        <DialogTitle>{langContent.title}</DialogTitle>
+        <DialogTitle>
+          <Typography color="secondary">
+            {langContent.title}
+          </Typography>
+        </DialogTitle>
         <DialogContent>
           {/* <DialogContentText>Content</DialogContentText> */}
           {
@@ -75,14 +77,11 @@ const VehicleInfoModal = () => {
               .map(([key, value]) => {
                 if (typeof value === 'string') {
                   return (
-                    <TextField
+                    <WhiteInput
                       key={key}
-                      margin="dense"
                       name={key}
                       label={fieldNames[key]}
                       type='text'
-                      fullWidth
-                      variant="outlined"
                       value={value}
                       onChange={handleOnChangeVehicleInfo}
                     />
@@ -94,8 +93,8 @@ const VehicleInfoModal = () => {
           }
         </DialogContent>
         <DialogActions>
-          <Button color="error" onClick={handleOnClose}>{langContent.cancelBtn}</Button>
-          <Button color="success" type="submit">{langContent.saveBtn}</Button>
+          <Button type="submit">{langContent.saveBtn}</Button>
+          <Button color="error" variant='outlined' onClick={handleOnClose}>{langContent.cancelBtn}</Button>
         </DialogActions>
       </Dialog>
     </>

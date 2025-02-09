@@ -3,9 +3,9 @@ import { ICar } from "@/models/state/state/user/car";
 
 
 
-const saveVehicleInfoService = (data: ICar) => {
+const saveCarInfoService = (data: ICar) => {
   const res = RestService.fetch<any>(
-    '/user/car/saveVehicleInfo', {
+    '/user/car/saveCarInfo', {
       method: 'POST',
       data,
     }
@@ -13,4 +13,4 @@ const saveVehicleInfoService = (data: ICar) => {
   return res;
 };
 
-export default saveVehicleInfoService;
+export default saveCarInfoService;

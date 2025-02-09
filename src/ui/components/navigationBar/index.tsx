@@ -48,8 +48,8 @@ export default function BottomNavigationBar(props: IBottomNavigationBarProps) {
       <BottomNavigation
         showLabels
         value={pathname}
-        sx={{
-          backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        sx={(theme) => ({
+          backgroundColor: theme.palette.secondary.main,
           // color: 'white',
           "button": {
             color: 'rgba(255, 255, 255, 0.7)',
@@ -57,7 +57,7 @@ export default function BottomNavigationBar(props: IBottomNavigationBarProps) {
           // "& .Mui-selected": {
           //   color: 'white'
           // }
-        }}
+        })}
         onChange={(event, newValue) => {
           onRouteChange(newValue as RoutePaths);
         }}

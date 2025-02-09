@@ -1,15 +1,17 @@
 'use client';
 import { useEffect, useState } from "react";
-import { Alert, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, TextField } from "@mui/material";
+import { Alert, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, TextField, Typography } from "@mui/material";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import CloseIcon from '@mui/icons-material/Close';
+import { useTranslations } from "next-intl";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
 import { SignInModalErrorType, SignInModalMode } from "../../../models/state/state/core";
 import { IField, getSignInModalConstants } from "../../../constants/components/signInModal";
 import { fetchChangePassword, fetchLogin, fetchRegistration } from "../../../redux/user/actions";
 import { coreActions } from "../../../redux/core";
-import { useTranslations } from "next-intl";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { WhiteInput } from "../common";
 
 
 // type SignInModalErrorType = 'password' | 'repeatPassword' | 'userName' | 'carName' | 'carNumber';
@@ -90,19 +92,31 @@ const SignInModal = () => {
           onSubmit: handleOnSubmit,
         }}
       >
-        <DialogTitle>{mode === SignInModalMode.Register ? langContent.registerTitle : langContent.loginTitle}</DialogTitle>
+        <DialogTitle color="secondary">{mode === SignInModalMode.Register ? langContent.registerTitle : langContent.loginTitle}</DialogTitle>
         {errorType !== null && <Alert severity="error" >{errorType} </Alert>}
+        <IconButton
+          aria-label="close"
+          onClick={() => handleChangeModalMode(SignInModalMode.Closed)}
+          sx={(theme) => ({
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: theme.palette.secondary.main,
+          })}
+          color="secondary"
+        >
+          <CloseIcon />
+        </IconButton>
         <DialogContent>
           {mode === SignInModalMode.Register &&
             <DialogContentText>{langContent.registerDescription}</DialogContentText>
           }
           {
             fields[mode]?.map(({ id, label, type, required }) => (
-              <TextField
+              <WhiteInput
                 key={id}
                 autoFocus={id === 'userName'}
                 required={required}
-                margin="dense"
                 id={id}
                 name={id}
                 label={label}
@@ -111,15 +125,16 @@ const SignInModal = () => {
                     ? passwordVisible ? 'text' : 'password'
                     : type
                 }
-                fullWidth
-                variant="standard"
-                color="primary"
+                // color="primary"
                 slotProps={{
                   input: {
                     renderSuffix(state) {
                       if (type === 'password' && state.filled) {
                         return (
                           <IconButton
+                            sx={{
+                              color: 'secondary.main',
+                            }}
                             onClick={() => setPasswordVisible(prev => !prev)}
                           >
                             {passwordVisible
@@ -135,33 +150,50 @@ const SignInModal = () => {
             ))
           }
         </DialogContent>
-        <DialogActions>
+        <DialogActions
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+          }}
+          disableSpacing
+        >
           {mode === SignInModalMode.Register &&
             <Button
-              sx={{ flex: 1 }}
+              // sx={{ flex: 1 }}
+              fullWidth
               onClick={() => handleChangeModalMode(SignInModalMode.Login)}
             >
               {langContent.loginBtn}
             </Button>}
           {mode === SignInModalMode.Login &&
             <Button
-              sx={{ flex: 1 }}
+              // sx={{ flex: 1 }}
+              fullWidth
               onClick={() => handleChangeModalMode(SignInModalMode.Register)}
+              variant="text"
+              color="secondary"
             >
               {langContent.registerBtn}
             </Button>}
-          <Button color="error" onClick={() => handleChangeModalMode(SignInModalMode.Closed)}>
-            {langContent.cancelBtn}
-          </Button>
-          <Button color="success" type="submit">
+          <Button
+            fullWidth
+            // color="success"
+            type="submit">
             {mode === SignInModalMode.ChangePassword
               ? signInMocalConstants.changePasswordModal.changePasswordBtn
               : mode === SignInModalMode.Register ? langContent.registerBtn : langContent.loginBtn}
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog >
     </>
   );
 };
+{/* <Button
+  fullWidth
+  color="error"
+  onClick={() => handleChangeModalMode(SignInModalMode.Closed)}>
+  {langContent.cancelBtn}
+</Button> */}
 
 export default SignInModal;

@@ -2,11 +2,11 @@ import { AppBar, IconButton, Menu, MenuItem, Toolbar } from "@mui/material";
 import LanguageIcon from '@mui/icons-material/Language';
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+
 import { usePathname, useRouter } from "@/i18n/routing";
 import { LocaleLang } from "@/models/locales";
 
-const Header = () => {
-  // const [open, setOpen] = useState(false);
+const WelcomeHeader = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -67,20 +67,20 @@ const Header = () => {
           }}
           sx={{
             backdropFilter: 'blur(3px)',
-            '& .MuiPaper-root': {
-              backgroundColor: 'purple',
-            }
+            // '& .MuiPaper-root': {
+            //   backgroundColor: 'purple',
+            // }
           }}
         >
           {Object.entries(langs).map(([lang, text]) =>
             <MenuItem
               key={lang}
-              sx={{
-                backgroundColor: 'purple',
+              sx={(theme) => ({
+                // backgroundColor: 'purple',
                 '&:hover': {
-                  backgroundColor: 'white',
+                  backgroundColor: theme.palette.primary.main,
                 }
-              }}
+              })}
               onClick={() => handleChangeLanguage(lang as LocaleLang)}
             >{text}</MenuItem>
           )
@@ -91,4 +91,4 @@ const Header = () => {
   );
 }
 
-export default Header;
+export default WelcomeHeader;

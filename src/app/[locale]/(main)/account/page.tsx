@@ -1,5 +1,5 @@
 'use client';
-import { Button, Stack, Typography } from "@mui/material";
+import { Button, Container, Stack, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 
 import { useAppDispatch } from "@/redux/hooks";
@@ -28,29 +28,31 @@ export default function AccountPage() {
   };
 
   return (
-    <>
+    <Container
+      maxWidth="md"
+      sx={{
+        display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'center',
+      }}
+      >
       <Typography
         variant="h4"
         component="h1"
       >
         {langContent.title}
-
       </Typography>
-      <Stack width={"100%"} >
+      <Stack width={"100%"} mt={5} >
         <Button
-          sx={{ mt: 2 }}
-          variant="contained"
           fullWidth
           onClick={handleChangePassword}
         >{langContent.changePasswordBtn}</Button>
         <Button
-          sx={{ mt: 2 }}
-          variant="contained"
           fullWidth
-          color="error"
+          sx={{mt:2}}
+          color='primary'
           onClick={handleLogout}
+          variant='outlined'
         >{langContent.logoutBtn}</Button>
       </Stack>
-    </>
+    </Container>
   );
 };

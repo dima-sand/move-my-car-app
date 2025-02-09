@@ -5,7 +5,6 @@ import { NextIntlClientProvider } from "next-intl";
 import StoreProvider from "@/redux/providers/StoreProvider";
 import "./globals.css";
 import { ClientLayoutComponent } from "@/ui/layouts/mainClientLayoutComponent";
-import { CarInfoModal } from "@/ui/components/modals";
 
 export const metadata: Metadata = {
   title: "MoveMyCar app",
@@ -26,9 +25,9 @@ export default async function RootLayout({
       <body>
         <NextIntlClientProvider messages={messages} >
           <StoreProvider>
-            <ClientLayoutComponent />
-            <CarInfoModal />
-            {children}
+            <ClientLayoutComponent>
+              {children}
+            </ClientLayoutComponent>
           </StoreProvider>
         </NextIntlClientProvider>
       </body>

@@ -2,7 +2,7 @@
 import { SignInModalMode } from "@/models/state/state/core";
 import { coreActions } from "@/redux/core";
 import { useAppDispatch } from "@/redux/hooks";
-import Header from "@/ui/components/header";
+import WelcomeHeader from "@/ui/components/headers/WelcomeHeader";
 import { Box, Button, Container, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 
@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <>
       <main>
-        <Header />
+        <WelcomeHeader />
         <Container
           maxWidth='md'
           sx={{
@@ -42,11 +42,7 @@ export default function Home() {
             <Box
               sx={{ display: 'flex', mt: 3 }}
             >
-              <Button
-                color="secondary"
-                variant="contained"
-                onClick={() => handleChangeModalMode(SignInModalMode.Login)}
-              >
+              <Button onClick={() => handleChangeModalMode(SignInModalMode.Login)} >
                 {content.loginBtn}
               </Button>
             </Box>

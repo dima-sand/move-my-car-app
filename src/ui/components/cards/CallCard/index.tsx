@@ -53,9 +53,6 @@ const CallCard = (props: ICallCardProps) => {
       key={call.timeStamp}
       my={1} mx={1}
       position='relative'
-      sx={{
-        // border: '1px solid gray',
-      }}
     >
       <Typography>
         {`${langContent.dateTime}: ${new Date(call.timeStamp).toLocaleString()}`}
@@ -88,8 +85,8 @@ const CallCard = (props: ICallCardProps) => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleToggleIsRead}>Mark as read</MenuItem>
-        <MenuItem onClick={hangleDelete}>Delete</MenuItem>
+        <MenuItem sx={{ color: 'black' }} onClick={handleToggleIsRead}>Mark as read</MenuItem>
+        <MenuItem sx={{ color: 'black' }} onClick={hangleDelete}>Delete</MenuItem>
       </Menu>
       {!call.isRead &&
         <Typography sx={{ color: 'red', position: 'absolute', right: 10, bottom: 0 }}>

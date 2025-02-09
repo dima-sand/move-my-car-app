@@ -1,15 +1,16 @@
 'use client';
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Loader } from "@/ui/components/common"
-import { SignInModal } from "@/ui/components/modals";
+import { CarInfoModal, SignInModal } from "@/ui/components/modals";
 import { useEffect } from "react";
-import { Typography } from "@mui/material";
+import { ThemeProvider, Typography } from "@mui/material";
 import { usePathname } from "next/navigation";
 import { CallUserPagePath } from "@/constants/routes";
 import { checkLogin } from "@/redux/user/actions";
+import theme from "@/ui/theme";
 
 
-export const ClientLayoutComponent = () => {
+export const ClientLayoutComponent = ({ children }: { children: React.ReactNode }) => {
   const isLoading = useAppSelector((state) => state.core.loading);
   const logInChecked = useAppSelector((state) => state.user.logInChecked);
 
@@ -25,9 +26,11 @@ export const ClientLayoutComponent = () => {
   }, [logInChecked, pathname]);
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
+
       <SignInModal />
       {((isLoading || !logInChecked) && !isCallUserPage) && <Loader isfullscreen />}
+      {children}
       <Typography
         sx={{
           position: 'absolute',
@@ -38,6 +41,7 @@ export const ClientLayoutComponent = () => {
       >
         Pre-alpha version
       </Typography>
-    </>
+      <CarInfoModal />
+    </ThemeProvider>
   );
 }
